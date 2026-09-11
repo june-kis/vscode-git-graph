@@ -617,7 +617,7 @@ export class RepoManager extends Disposable {
 	 * @returns TRUE => Change was made. FALSE => No change was made.
 	 */
 	private async processOnWatcherChangeEvent(path: string) {
-		if (!await doesPathExist(path)) {
+		if (!await doesPathExist(path) && this.isPathAssociatedWithRepo(path)) {
 			if (this.removeReposWithinFolder(path)) {
 				return true;
 			}
@@ -695,6 +695,10 @@ export class RepoManager extends Disposable {
 			}
 			return null;
 		}, (error) => error);
+	}
+
+	private isPathAssociatedWithRepo(path: string) {
+		return this.getReposInFolder(path).length > 0;
 	}
 }
 

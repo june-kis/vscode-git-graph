@@ -1741,6 +1741,26 @@ describe('RepoManager', () => {
 				expect(onDidChangeReposEvents).toStrictEqual([]);
 			});
 		});
+
+		it('Shouldn\'t remove a repository when a file is removed', async () => {
+			// Setup
+			mockFsStatOnce(new Error(), false);
+
+			// Run
+			emitOnDidChange(vscode.Uri.file('/path/to/workspace-folder1/file.txt'));
+
+			// Assert
+			expect(spyOnEnqueue).toHaveBeenCalledWith('/path/to/workspace-folder1/file.txt');
+			await waitForExpect(() => {
+				expect(repoManager['onWatcherChangeQueue']['queue']).toStrictEqual([]);
+				expect(repoManager['onWatcherChangeQueue']['processing']).toBe(false);
+				expect(spyOnStat).toHaveBeenCalledWith('/path/to/workspace-folder1/file.txt', expect.anything());
+				expect(repoManager.getRepos()).toStrictEqual({
+					'/path/to/workspace-folder1/repo': mockRepoState({ workspaceFolderIndex: 0 })
+				});
+				expect(onDidChangeReposEvents).toStrictEqual([]);
+			});
+		});
 	});
 
 	describe('onWatcherDelete', () => {

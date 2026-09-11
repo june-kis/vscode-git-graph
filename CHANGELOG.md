@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.30.2 - 2026-09-11
+* 파일 변경 watcher가 삭제된 일반 파일 경로를 저장소 삭제 경로로 오인해, 파일명 뒤에 `.git`이 붙은 잘못된 Git 경로를 찾던 문제를 수정했습니다.
+
 ## 1.30.1 - 2026-09-11
 * 커밋 상세 화면(Commit Details View)에 변경된 파일 목록을 클립보드로 복사하는 "Copy Changed File List to Clipboard" 기능을 추가했습니다.
 * 내부 빌드 툴체인(TypeScript, ESLint, Jest)을 최신 버전으로 업그레이드하고, GitHub 아바타 URL을 잘못 조합하던 잠재적 버그를 수정했습니다.
