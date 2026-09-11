@@ -87,7 +87,7 @@ Step 4: To quickly test your changes:
     * Stop the Extension Development Host
 
 Step 5: To do a complete test of your changes:
-1. Install Visual Studio Code Extensions `npm install -g vsce` if it is not already installed.
+1. `@vscode/vsce` is included as a dev dependency, so no global install is required (it was previously installed globally as `vsce`).
 2. Change the version of the extension defined in `package.json` on line 4 to an alpha release, for example `1.13.0-alpha.0`. You should increment the alpha version each time you package a modified version of the extension. _Make sure you don't commit the version number with your changes._
 3. Run the npm script `npm run package-and-install` in the Visual Studio Code terminal. This will compile and package the extension into a `vsix` file, and then install it.
 4. Restart Visual Studio Code, and verify that you have the correct alpha version installed.
