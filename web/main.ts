@@ -1996,7 +1996,7 @@ class GitGraphView {
 	}
 
 	private observeViewScroll() {
-		let active = this.viewElem.scrollTop > 0, timeout: NodeJS.Timer | null = null;
+		let active = this.viewElem.scrollTop > 0, timeout: NodeJS.Timeout | null = null;
 		this.scrollShadowElem.className = active ? CLASS_ACTIVE : '';
 		this.viewElem.addEventListener('scroll', () => {
 			const scrollTop = this.viewElem.scrollTop;
@@ -2578,6 +2578,7 @@ class GitGraphView {
 		html += '</div><div id="cdvControls"><div id="cdvClose" class="cdvControlBtn" title="Close">' + SVG_ICONS.close + '</div>' +
 			(codeReviewPossible ? '<div id="cdvCodeReview" class="cdvControlBtn">' + SVG_ICONS.review + '</div>' : '') +
 			(!expandedCommit.loading ? '<div id="cdvFileViewTypeTree" class="cdvControlBtn cdvFileViewTypeBtn" title="File Tree View">' + SVG_ICONS.fileTree + '</div><div id="cdvFileViewTypeList" class="cdvControlBtn cdvFileViewTypeBtn" title="File List View">' + SVG_ICONS.fileList + '</div>' : '') +
+			(!expandedCommit.loading ? '<div id="cdvCopyFileList" class="cdvControlBtn" title="Copy Changed File List to Clipboard">' + SVG_ICONS.copy + '</div>' : '') +
 			(externalDiffPossible ? '<div id="cdvExternalDiff" class="cdvControlBtn">' + SVG_ICONS.linkExternal + '</div>' : '') +
 			'</div><div class="cdvHeightResize"></div>';
 
@@ -2648,6 +2649,13 @@ class GitGraphView {
 
 			document.getElementById('cdvFileViewTypeList')!.addEventListener('click', () => {
 				this.changeFileViewType(GG.FileViewType.List);
+			});
+
+			document.getElementById('cdvCopyFileList')!.addEventListener('click', () => {
+				const expandedCommit = this.expandedCommit;
+				if (expandedCommit === null || expandedCommit.fileTree === null || expandedCommit.fileChanges === null) return;
+				const files = getFilesInTree(expandedCommit.fileTree, expandedCommit.fileChanges);
+				sendMessage({ command: 'copyToClipboard', type: 'File List', data: files.join('\n') });
 			});
 
 			if (codeReviewPossible) {

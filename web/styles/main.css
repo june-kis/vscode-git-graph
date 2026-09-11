@@ -348,6 +348,10 @@ code{
 	border-radius:4px;
 }
 
+#cdvCopyFileList{
+	border-radius:4px;
+}
+
 #cdvFileViewTypeTree{
 	border-radius:4px 4px 0 0;
 	margin-bottom:0;

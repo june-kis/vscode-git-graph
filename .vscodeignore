@@ -10,6 +10,7 @@ resources/demo.gif
 src/
 tests/
 web/
-.eslintrc.json
+eslint.config.js
 .gitignore
+graphify-out/
 jest.config.js

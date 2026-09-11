@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.30.1 - 2026-09-11
+* 커밋 상세 화면(Commit Details View)에 변경된 파일 목록을 클립보드로 복사하는 "Copy Changed File List to Clipboard" 기능을 추가했습니다.
+* 내부 빌드 툴체인(TypeScript, ESLint, Jest)을 최신 버전으로 업그레이드하고, GitHub 아바타 URL을 잘못 조합하던 잠재적 버그를 수정했습니다.
+
 ## 1.30.0 - 2021-04-05
 * #395 Added a "Force Fetch" option onto the "Fetch into Local Branch" Dialog, allowing any local branch (that's not checked out) to be reset to the remote branch. This dialog is accessed via the Remote Branch Context Menu.
 * #457 New "View Diff with Working File" action on the File Context Menu in the Commit Details View.

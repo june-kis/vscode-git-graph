@@ -24,18 +24,29 @@ let mockedWebviews: { panel: vscode.WebviewPanel, mocks: WebviewPanelMocks }[] =
 export const mocks = {
 	extensionContext: {
 		asAbsolutePath: jest.fn(),
+		extension: {} as vscode.Extension<any>,
+		extensionMode: 1,
 		extensionPath: '/path/to/extension',
+		extensionUri: {} as vscode.Uri,
+		environmentVariableCollection: {} as vscode.EnvironmentVariableCollection,
 		globalState: {
 			get: jest.fn(),
-			update: jest.fn()
+			update: jest.fn(),
+			keys: jest.fn(),
+			setKeysForSync: jest.fn()
 		},
+		globalStorageUri: {} as vscode.Uri,
 		globalStoragePath: '/path/to/globalStorage',
+		logUri: {} as vscode.Uri,
 		logPath: '/path/to/logs',
+		secrets: {} as vscode.SecretStorage,
+		storageUri: {} as vscode.Uri,
 		storagePath: '/path/to/storage',
 		subscriptions: [],
 		workspaceState: {
 			get: jest.fn(),
-			update: jest.fn()
+			update: jest.fn(),
+			keys: jest.fn()
 		}
 	},
 	outputChannel: {
@@ -213,6 +224,7 @@ function createWebviewPanel(viewType: string, title: string, _showOptions: ViewC
 		options: {},
 		reveal: jest.fn((_viewColumn?: ViewColumn, _preserveFocus?: boolean) => { }),
 		title: title,
+		viewColumn: undefined,
 		visible: true,
 		viewType: viewType,
 		webview: {
