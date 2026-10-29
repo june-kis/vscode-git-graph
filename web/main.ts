@@ -2702,12 +2702,13 @@ class GitGraphView {
 
 	private setCdvHeight(elem: HTMLElement, isDocked: boolean) {
 		let height = this.gitRepos[this.currentRepo].cdvHeight, windowHeight = window.innerHeight;
+		if (height < 160) height = 160;
 		if (height > windowHeight - 40) {
-			height = Math.max(windowHeight - 40, 100);
-			if (height !== this.gitRepos[this.currentRepo].cdvHeight) {
-				this.gitRepos[this.currentRepo].cdvHeight = height;
-				this.saveRepoState();
-			}
+			height = Math.max(windowHeight - 40, 160);
+		}
+		if (height !== this.gitRepos[this.currentRepo].cdvHeight) {
+			this.gitRepos[this.currentRepo].cdvHeight = height;
+			this.saveRepoState();
 		}
 
 		let heightPx = height + 'px';
@@ -2731,9 +2732,9 @@ class GitGraphView {
 			let delta = (<MouseEvent>e).pageY - prevY, isDocked = this.isCdvDocked(), windowHeight = window.innerHeight;
 			prevY = (<MouseEvent>e).pageY;
 			let height = this.gitRepos[this.currentRepo].cdvHeight + (isDocked ? -delta : delta);
-			if (height < 100) height = 100;
+			if (height < 160) height = 160;
 			else if (height > 600) height = 600;
-			if (height > windowHeight - 40) height = Math.max(windowHeight - 40, 100);
+			if (height > windowHeight - 40) height = Math.max(windowHeight - 40, 160);
 
 			if (this.gitRepos[this.currentRepo].cdvHeight !== height) {
 				this.gitRepos[this.currentRepo].cdvHeight = height;
@@ -3722,7 +3723,7 @@ function updateFileTreeHtmlFileReviewed(elem: HTMLElement, folder: FileTreeFolde
 function getFilesInTree(folder: FileTreeFolder, gitFiles: ReadonlyArray<GG.GitFileChange>) {
 	let files: string[] = [];
 	const scanFolder = (folder: FileTreeFolder) => {
-		let keys = Object.keys(folder.contents);
+		let keys = sortFolderKeys(folder);
 		for (let i = 0; i < keys.length; i++) {
 			let cur = folder.contents[keys[i]];
 			if (cur.type === 'folder') {

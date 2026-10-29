@@ -328,6 +328,8 @@ code{
 	position:absolute;
 	right:0;
 	width:32px;
+	overflow-x:hidden;
+	overflow-y:auto;
 }
 
 .cdvControlBtn{

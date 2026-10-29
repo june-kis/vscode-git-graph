@@ -29,7 +29,6 @@ module.exports = [
 			'func-call-spacing': 'warn',
 			'indent': ['warn', 'tab', { SwitchCase: 1 }],
 			'key-spacing': 'warn',
-			'linebreak-style': ['warn', 'windows'],
 			'new-cap': 'warn',
 			'new-parens': 'warn',
 			'no-alert': 'error',
